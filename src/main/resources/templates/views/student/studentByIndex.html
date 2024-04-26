@@ -44,6 +44,8 @@
         <input type="submit" value="Редактировать"/>
     </form>
 
+    <br/>
+
     <form th:method="DELETE" th:action="@{/students/{studentId}(studentId=${studentGet.getId()})}">
         <input type="submit" value="Удалить"/>
     </form>

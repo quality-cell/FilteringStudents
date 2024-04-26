@@ -22,13 +22,54 @@
 
     <hr/>
 
-    <div th:each="student : ${studentGet}">
-        <a th:href="@{/students/{studentId}(studentId=${student.getId()})}"
-            th:text="${student.getFullName() + ', ' + student.getGroupName()}">Студент</a>
-    </div>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    <hr/>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
 
-    <a href="/students/new">Добавить студента</a>
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Пол</th>
+                <th>Статус</th>
+                <th>Тип финансирования</th>
+                <th>Группа</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="student : ${studentGet}">
+                <td>
+                    <a style="text-decoration: none;" th:href="@{/students/{studentId}(studentId=${student.getId()})}"
+                       th:text="${student.getFullName()}">Студент</a>
+                </td>
+                <td th:text="${student.getGenderText()}"></td>
+                <td th:text="${student.getStatusText()}"></td>
+                <td th:text="${student.getFundingTypeText()}"></td>
+                <td th:text="${student.getGroupName()}"></td>
+            </tr>
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    <a href="/students/new">Добавить студента</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

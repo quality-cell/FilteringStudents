@@ -9,13 +9,50 @@
 
     <hr/>
 
-    <div th:each="group : ${groupGet}">
-        <a th:href="@{/groups/{groupId}(groupId=${group.getId()})}"
-           th:text="${group.getName() + ', ' + group.getCourse() + ', ' + group.getDegreeText()}">Группа</a>
-    </div>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    <hr/>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
 
-    <a href="/groups/new">Добавить группу</a>
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Номер группы</th>
+            <th>Степень</th>
+            <th>Курс</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="group : ${groupGet}">
+            <td>
+                <a style="text-decoration: none;" th:href="@{/groups/{groupId}(groupId=${group.getId()})}"
+                   th:text="${group.getName()}">Группа</a>
+            </td>
+            <td th:text="${group.getDegreeText()}"></td>
+            <td th:text="${group.getCourse()}"></td>
+        </tr>
+        <tr>
+            <td colspan="6" style="text-align: center;">
+                <a href="/groups/new">Добавить группу</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>

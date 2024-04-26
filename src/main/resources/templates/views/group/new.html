@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить группу</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/groups}" th:object="${groupPost}">
+        <label for="name" style="display: inline-block; width: 120px;">Номер группы: </label>
+        <input type="text" th:field="*{name}" id="name" style="margin-bottom: 10px" required/>
+        <br/>
+        <label for="degree" style="display: inline-block; width: 120px;">Степень: </label>
+        <select type="text" th:field="*{degree}" id="degree" style="width: 170px; margin-bottom: 10px">
+            <option value="BACHELOR">Бакалавр</option>
+            <option value="MASTER">Магистр</option>
+            <option value="SPECIALIST">Специалист</option>
+            <option value="GRADUATE_STUDENT">Аспирант</option>
+        </select>
+        <br/>
+        <label for="course" style="display: inline-block; width: 120px;">Курс: </label>
+        <input type="number" th:field="*{course}" id="course" min="1" max="5" style= "width: 165px; margin-bottom: 10px" required/>
+        <br/>
+        <input type="submit" value="Добавить!"/>
+    </form>
+</body>
+</html>

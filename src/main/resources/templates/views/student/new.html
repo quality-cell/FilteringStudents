@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить студента</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/students}" th:object="${studentPost}">
+        <label for="secondName" style="display: inline-block; width: 120px;">Фамилия: </label>
+        <input type="text" th:field="*{secondName}" id="secondName" style="margin-bottom: 10px" required/>
+        <br/>
+        <label for="name" style="display: inline-block; width: 120px;">Имя: </label>
+        <input type="text" th:field="*{name}" id="name" style="margin-bottom: 10px" required/>
+        <br/>
+        <label for="surname" style="display: inline-block; width: 120px;">Отчество: </label>
+        <input type="text" th:field="*{surname}" id="surname" style="margin-bottom: 10px" required/>
+        <br/>
+        <label for="gender" style="display: inline-block; width: 120px;">Пол: </label>
+        <select type="text" th:field="*{gender}" id="gender" style="width: 170px; margin-bottom: 10px">
+            <option value="MALE">Мужской</option>
+            <option value="FEMALE">Женский</option>
+        </select>
+        <br/>
+        <label for="status" style="display: inline-block; width: 120px;">Статус: </label>
+        <select type="text" th:field="*{status}" id="status" style="width: 170px; margin-bottom: 10px">
+            <option value="STUDENT">Учащийся</option>
+            <option value="EXPELLED">Отчисленный</option>
+        </select>
+        <br/>
+        <label for="fundingType" style="display: inline-block; width: 120px;">Тип финансирования: </label>
+        <select type="text" th:field="*{fundingType}" id="fundingType" style="width: 170px; margin-bottom: 10px">
+            <option value="BUDGET">На основе бюджетного финансирования</option>
+            <option value="CONTRACTUAL">На договорной основе</option>
+        </select>
+        <br/>
+        <label for="groupName" style="display: inline-block; width: 120px;">Выберите номер группы: </label>
+        <select id="groupName" name="groupName" style="width: 170px; margin-bottom: 10px">
+            <option th:each="group : ${groupGet}" th:value="${group.getName()}"
+                    th:text="${group.getName()}"></option>
+        </select>
+        <br/>
+        <input type="submit" value="Добавить!"/>
+    </form>
+</body>
+</html>

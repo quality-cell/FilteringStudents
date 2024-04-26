@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список групп</title>
+</head>
+<body>
+    <h1>Список групп</h1>
+
+    <hr/>
+
+    <div th:each="group : ${groupGet}">
+        <a th:href="@{/groups/{groupId}(groupId=${group.getId()})}"
+           th:text="${group.getName() + ', ' + group.getCourse() + ', ' + group.getDegreeText()}">Группа</a>
+    </div>
+
+    <hr/>
+
+    <a href="/groups/new">Добавить группу</a>
+</body>
+</html>

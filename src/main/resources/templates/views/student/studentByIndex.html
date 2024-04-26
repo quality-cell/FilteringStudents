@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Студент</title>
+</head>
+<body>
+    <div>
+        <table th:each="student : ${studentGet}">
+            <tr>
+                <td><b>ФИО </b></td>
+                <td th:text="${student.getFullName()}"></td>
+            </tr>
+            <tr>
+                <td><b>Группа </b></td>
+                <td th:text="${student.getGroupName()}"></td>
+            </tr>
+            <tr>
+                <td><b>Курс </b></td>
+                <td th:text="${student.getCourse()}"></td>
+            </tr>
+            <tr>
+                <td><b>Степень </b></td>
+                <td th:text="${student.getDegreeText()}"></td>
+            </tr>
+            <tr>
+                <td><b>Пол </b></td>
+                <td th:text="${student.getGenderText()}"></td>
+            </tr>
+            <tr>
+                <td><b>Статус </b></td>
+                <td th:text="${student.getStatusText()}"></td>
+            </tr>
+            <tr>
+                <td><b>Тип финансирования </b></td>
+                <td th:text="${student.getFundingTypeText()}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <hr/>
+
+    <form th:method="GET" th:action="@{/students/{studentId}/edit(studentId=${studentGet.getId()})}">
+        <input type="submit" value="Редактировать"/>
+    </form>
+
+    <form th:method="DELETE" th:action="@{/students/{studentId}(studentId=${studentGet.getId()})}">
+        <input type="submit" value="Удалить"/>
+    </form>
+</body>
+</html>

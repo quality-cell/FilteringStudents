@@ -44,7 +44,7 @@
                 <a style="text-decoration: none;" th:href="@{/groups/{groupId}(groupId=${group.getId()})}"
                    th:text="${group.getName()}">Группа</a>
             </td>
-            <td th:text="${group.getDegreeText()}"></td>
+            <td th:text="${group.getDegree()}"></td>
             <td th:text="${group.getCourse()}"></td>
         </tr>
         <tr>

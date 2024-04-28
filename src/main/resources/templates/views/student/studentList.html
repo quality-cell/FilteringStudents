@@ -59,9 +59,9 @@
                     <a style="text-decoration: none;" th:href="@{/students/{studentId}(studentId=${student.getId()})}"
                        th:text="${student.getFullName()}">Студент</a>
                 </td>
-                <td th:text="${student.getGenderText()}"></td>
-                <td th:text="${student.getStatusText()}"></td>
-                <td th:text="${student.getFundingTypeText()}"></td>
+                <td th:text="${student.getGender()}"></td>
+                <td th:text="${student.getStatus()}"></td>
+                <td th:text="${student.getFundingType()}"></td>
                 <td th:text="${student.getGroupName()}"></td>
             </tr>
             <tr>

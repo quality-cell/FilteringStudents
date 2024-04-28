@@ -37,7 +37,7 @@ public class StudentService {
             throw new EntityNotFoundException("Список студентов пуст");
         }
 
-        students.sort(Comparator.comparing(StudentGet::getFullName));
+        students.sort(Comparator.comparing(StudentGet::getCourse));
 
         return students;
     }
@@ -73,7 +73,7 @@ public class StudentService {
 
     public void createStudent(StudentPost studentPost) {
         if (groupRepository.findAll().isEmpty()) {
-            throw new EntityNotFoundException("Сначала нужно добавить создать группу");
+            throw new EntityNotFoundException("Сначала нужно создать группу");
         }
 
         groupRepository.findByName(studentPost.getGroupName())

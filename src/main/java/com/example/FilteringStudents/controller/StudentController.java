@@ -28,16 +28,10 @@ public class StudentController {
 
     @GetMapping("/all")
     public String getAllStudents(@RequestParam(name = "groupName", required = false) String groupName, Model model) {
-        try {
-            if (groupName == null || groupName.isEmpty()) {
-                model.addAttribute("studentGet", studentService.getAllStudents());
-            } else {
-                model.addAttribute("studentGet", studentService.getByGroupName(groupName));
-            }
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
+        if (groupName == null || groupName.isEmpty()) {
+            model.addAttribute("studentGet", studentService.getAllStudents());
+        } else {
+            model.addAttribute("studentGet", studentService.getByGroupName(groupName));
         }
 
         model.addAttribute("groupGet", groupService.getAllGroups());
@@ -46,80 +40,44 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public String getStudentById(@PathVariable int studentId, Model model) {
-        try {
-            model.addAttribute("studentGet", studentService.getStudentById(studentId));
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+    public String getStudentById(@PathVariable Integer studentId, Model model) {
+        model.addAttribute("studentGet", studentService.getStudentById(studentId));
 
         return "/views/student/studentByIndex";
     }
 
     @GetMapping("/new")
     public String newStudent(@ModelAttribute("studentPost") StudentPost studentPost, Model model) {
-        try {
-            model.addAttribute("groupGet", groupService.getAllGroups());
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        model.addAttribute("groupGet", groupService.getAllGroups());
 
         return "/views/student/new";
     }
 
     @PostMapping
     public String createStudent(@ModelAttribute("studentPost") @Validated StudentPost studentPost, Model model) {
-        try {
-            studentService.createStudent(studentPost);
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        studentService.createStudent(studentPost);
 
         return "redirect:/";
     }
 
     @GetMapping("/{studentId}/edit")
     public String editStudent(Model model, @PathVariable("studentId") Integer studentId) {
-        try {
-            model.addAttribute("studentPatch", studentMapper.studentGetToStudentPatch(studentService.getStudentById(studentId)));
-            model.addAttribute("groupGet", groupService.getAllGroups());
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        model.addAttribute("studentPatch", studentMapper.studentGetToStudentPatch(studentService.getStudentById(studentId)));
+        model.addAttribute("groupGet", groupService.getAllGroups());
 
         return "/views/student/edit";
     }
 
     @PatchMapping("/{studentId}")
     public String updateStudent(@PathVariable("studentId") Integer studentId, @ModelAttribute("studentPatch") @Validated StudentPatch studentPatch, Model model) {
-        try {
-            studentService.updateStudent(studentId, studentPatch);
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        studentService.updateStudent(studentId, studentPatch);
 
         return "redirect:/";
     }
 
     @DeleteMapping("/{studentId}")
     public String deleteStudent(@PathVariable Integer studentId, Model model) {
-        try {
-            studentService.deleteStudent(studentId);
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        studentService.deleteStudent(studentId);
 
         return "redirect:/";
     }

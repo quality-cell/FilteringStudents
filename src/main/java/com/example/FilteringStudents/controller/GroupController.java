@@ -26,26 +26,15 @@ public class GroupController {
 
     @GetMapping("/all")
     public String getAllGroups(Model model) {
-        try {
-            model.addAttribute("groupGet", groupService.getAllGroups());
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
+        model.addAttribute("groupGet", groupService.getAllGroups());
 
-            return "/views/errorMessage";
-        }
 
         return "/views/group/groupList";
     }
 
     @GetMapping("/{groupId}")
     public String getGroupById(@PathVariable Integer groupId, Model model) {
-        try {
-            model.addAttribute("groupGet", groupService.getGroupById(groupId));
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        model.addAttribute("groupGet", groupService.getGroupById(groupId));
 
         return "/views/group/groupByIndex";
     }
@@ -57,13 +46,7 @@ public class GroupController {
 
     @PostMapping
     public String createGroup(@ModelAttribute("groupPost") @Validated GroupPost groupPost, Model model) {
-        try {
-            groupService.createGroup(groupPost);
-        } catch (EntityExistsException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        groupService.createGroup(groupPost);
 
         return "redirect:/";
 
@@ -71,40 +54,22 @@ public class GroupController {
 
     @GetMapping("/{groupId}/edit")
     public String editGroup(Model model, @PathVariable Integer groupId) {
-        try {
-            model.addAttribute("groupPatch", groupMapper.groupGetToGroupPatch(groupService.getGroupById(groupId)));
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        model.addAttribute("groupPatch", groupMapper.groupGetToGroupPatch(groupService.getGroupById(groupId)));
 
         return "/views/group/edit";
     }
 
 
     @PatchMapping("/{groupId}")
-    public String updateGroup(@ModelAttribute("groupGet") @Validated GroupPatch groupPatch, @PathVariable Integer groupId, Model model) {
-        try {
-            groupService.updateGroup(groupId, groupPatch);
-        } catch (EntityNotFoundException | EntityExistsException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+    public String updateGroup(@ModelAttribute("groupPatch") @Validated GroupPatch groupPatch, @PathVariable Integer groupId, Model model) {
+        groupService.updateGroup(groupId, groupPatch);
 
         return "redirect:/";
     }
 
     @DeleteMapping("/{groupId}")
     public String deleteGroup(@PathVariable Integer groupId, Model model) {
-        try {
-            groupService.deleteGroup(groupId);
-        } catch (EntityNotFoundException exception) {
-            model.addAttribute("errorMessage", exception.getMessage());
-
-            return "/views/errorMessage";
-        }
+        groupService.deleteGroup(groupId);
 
         return "redirect:/";
     }

@@ -50,9 +50,9 @@ public class GroupService {
     }
 
     public void createGroup(GroupPost groupPost) {
-        Optional<Group> groupOptional = groupRepository.findByName(groupPost.getName());
+        Optional<Group> groupOptional = groupRepository.findByName(groupPost.getName().toUpperCase().trim());
 
-        if (groupOptional.isPresent() && groupOptional.get().getName().equalsIgnoreCase(groupPost.getName())) {
+        if (groupOptional.isPresent()) {
             throw new EntityExistsException("Группа " + groupPost.getName() + " уже существует");
         } else if (!courseCheck(groupPost.getDegree(), groupPost.getCourse())) {
             throw new EntityExistsException("Степень не соответствует курсу обучения");
@@ -81,7 +81,7 @@ public class GroupService {
 
         if (groupOptional.isEmpty()) {
             throw new EntityNotFoundException("Группа с id: " + id + " не существует");
-        } else if (!groupOptional.get().getStudent().isEmpty()) {
+        } else if (groupOptional.get().getStudent() != null && !groupOptional.get().getStudent().isEmpty()) {
             throw new EntityNotFoundException("В группе с id: " + id + " еще есть студенты");
         }
 
@@ -89,7 +89,7 @@ public class GroupService {
     }
 
     private boolean courseCheck(Degree degree, Integer course) {
-        if (degree == Degree.BACHELOR ||
+        if (degree == Degree.BACHELOR && course >= 1 && course <= 4 ||
                 degree == Degree.GRADUATE_STUDENT && course >= 1 && course <= 4 ||
                 degree == Degree.MASTER && course >= 1 && course <= 2 ||
                 degree == Degree.SPECIALIST && course >= 1 && course <= 5) {

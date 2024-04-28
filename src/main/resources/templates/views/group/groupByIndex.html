@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <td><b>Степень: </b></td>
-                <td th:text="${group.getDegreeText()}"></td>
+                <td th:text="${group.getDegree()}"></td>
             </tr>
             <tr>
                 <td><b>Курс: </b></td>
@@ -27,6 +27,8 @@
     <form th:method="GET" th:action="@{/groups/{groupId}/edit(groupId=${groupGet.getId()})}">
         <input type="submit" value="Редактировать"/>
     </form>
+
+    <br/>
 
     <form th:method="DELETE" th:action="@{/groups/{groupId}(groupId=${groupGet.getId()})}">
         <input type="submit" value="Удалить"/>

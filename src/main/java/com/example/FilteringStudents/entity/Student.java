@@ -8,9 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "student")
 @Getter
 @Setter
+@Table(name = "student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

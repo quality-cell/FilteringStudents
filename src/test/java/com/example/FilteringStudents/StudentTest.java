@@ -93,6 +93,7 @@ public class StudentTest {
         studentGetList.add(studentGet4);
         studentGetList.add(studentGet5);
 
+        studentGetList.sort(Comparator.comparing(StudentGet::getGroupName));
         studentGetList.sort(Comparator.comparing(StudentGet::getCourse));
 
         MvcResult mvcResult = this.mockMvc.perform(get("/students/all")).andExpect(status().isOk()).andReturn();
@@ -256,6 +257,7 @@ public class StudentTest {
         studentGetList.add(studentGet3);
         studentGetList.add(studentGet4);
 
+        studentGetList.sort(Comparator.comparing(StudentGet::getGroupName));
         studentGetList.sort(Comparator.comparing(StudentGet::getCourse));
 
         //Delete

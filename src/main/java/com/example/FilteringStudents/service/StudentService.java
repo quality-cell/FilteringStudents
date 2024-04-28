@@ -37,6 +37,7 @@ public class StudentService {
             throw new EntityNotFoundException("Список студентов пуст");
         }
 
+        students.sort(Comparator.comparing(StudentGet::getGroupName));
         students.sort(Comparator.comparing(StudentGet::getCourse));
 
         return students;
